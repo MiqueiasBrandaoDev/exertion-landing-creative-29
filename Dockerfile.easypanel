@@ -16,6 +16,11 @@ RUN npm ci --only=production --silent
 # Copiar código fonte
 COPY . .
 
+# Configurar variáveis de ambiente para build
+# Usa o mesmo domínio (proxy reverso via Nginx)
+ARG VITE_API_URL=""
+ENV VITE_API_URL=$VITE_API_URL
+
 # Build da aplicação
 RUN npm run build
 

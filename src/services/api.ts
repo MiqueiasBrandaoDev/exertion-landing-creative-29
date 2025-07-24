@@ -16,7 +16,7 @@ import {
   GrupoWithMensagens
 } from '@/types/database';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.MODE === 'production' ? '' : 'http://localhost:3001');
 
 class ApiService {
   private async request<T>(

@@ -171,6 +171,21 @@ Acesse via dashboard do EasyPanel.
 
 ## 🛠 Troubleshooting
 
+### ❌ Erro "Unexpected token '<', "<!DOCTYPE "... is not valid JSON"
+
+**Problema**: Frontend tentando acessar API e recebendo HTML ao invés de JSON.
+
+**Solução**: 
+1. **Verificar se backend está rodando**:
+   - EasyPanel → Services → Backend → Status
+2. **Usar proxy reverso**:
+   - Nginx configurado para proxy `/api/` → `backend:3001`
+   - Frontend usa URLs relativas (sem domínio)
+3. **Variáveis de ambiente**:
+   ```bash
+   VITE_API_URL=""  # Vazio para usar proxy
+   ```
+
 ### 1. Build Failures
 
 ```bash
@@ -192,7 +207,13 @@ Acesse via dashboard do EasyPanel.
 # EasyPanel dashboard → Environment Variables
 ```
 
-### 4. SSL Issues
+### 4. CORS Issues
+
+**Solução**: Use proxy reverso (já configurado):
+- Frontend: `fetch('/api/endpoint')`
+- Nginx: `proxy_pass http://backend:3001/api/endpoint`
+
+### 5. SSL Issues
 
 ```bash
 # Reconfigurar domínio
